@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tasks.Infraestructure\Tasks.Infraestructure.csproj" />
+    <ProjectReference Include="..\Tasks.Services\Tasks.Services.csproj" />
+  </ItemGroup>
+
 </Project>
