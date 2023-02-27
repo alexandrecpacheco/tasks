@@ -2,7 +2,6 @@
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Threading.Tasks;
 using Tasks.Domain.DTO.Request;
 using Tasks.Domain.Interfaces.Data.Service;
 
