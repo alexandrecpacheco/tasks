@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Tasks.Domain.Interfaces.Data;
+using Tasks.Domain.Interfaces.Data.Repository;
+using Tasks.Domain.Interfaces.Data.Service;
+using Tasks.Infraestructure;
+using Tasks.Infraestructure.Data;
+using Tasks.Services;
 
 namespace Task.IoC
 {
@@ -11,7 +12,11 @@ namespace Task.IoC
     {
         public static void RegisterDependencyInjection(this IServiceCollection services)
         {
+            services.AddSingleton<IDatabase, Database>();
 
+            services.AddScoped<ITaskService, TaskService>();
+
+            services.AddScoped<ITaskRepository, TaskRepository>();
         }
     }
 }
