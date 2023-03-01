@@ -1,7 +1,12 @@
 using AutoMapper;
-using Task.IoC;
+using Serilog;
+using System.Reflection;
 using Tasks.Domain.AutoMapper;
+using Tasks.Domain.Events;
 using Tasks.Domain.Interfaces.Data;
+using Tasks.Handler.EventHandlers;
+using Tasks.IoC;
+using Tasks.IoC.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +19,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterDependencyInjection();
 
+builder.Services.AddRabbitMq(builder.Configuration);
+
 builder.Services.AddLogging();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//builder.Services.AddMediatR(c => c.TypeEvaluator.Invoke(typeof(TaskCreatedEventHandler)));
+//builder.Services.AddMediatR(c => AppDomain.CurrentDomain.GetAssemblies());
+//builder.Services.AddMediatR(c => Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
@@ -43,9 +54,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseRabbitMq().SubscribeEvent<TaskCreatedEvent>();
+
 app.Run();
 
 RegisterMappings();
+
+CreateHostBuilder(args).Build().Run();
+
+Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("ApplicationName", $"Task RabbitMq Consumer - {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}")
+                .Enrich.FromLogContext()
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}")
+                .CreateLogger();
 
 static MapperConfiguration RegisterMappings()
 {
@@ -55,4 +76,12 @@ static MapperConfiguration RegisterMappings()
         cfg.AddProfile(new RequestToDomainMapperTask());
     });
 }
+
+static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Program>();
+                });
 

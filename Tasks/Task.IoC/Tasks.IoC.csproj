@@ -7,32 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Migrations\0001-create-database.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Data\Migrations\0001-create-database.sql">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="dbup-core-net6" Version="4.6.1" />
-    <PackageReference Include="dbup-sqlserver" Version="5.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
     <PackageReference Include="RawRabbit" Version="2.0.0-rc5" />
-    <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
     <PackageReference Include="RawRabbit.Enrichers.GlobalExecutionId" Version="2.0.0-rc5" />
     <PackageReference Include="RawRabbit.Enrichers.HttpContext" Version="2.0.0-rc5" />
     <PackageReference Include="RawRabbit.Enrichers.MessageContext" Version="2.0.0-rc5" />
     <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-rc5" />
     <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc5" />
+    <PackageReference Include="RawRabbit.vNext" Version="1.10.4" />
     <PackageReference Include="Serilog" Version="2.12.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tasks.Domain\Tasks.Domain.csproj" />
+    <ProjectReference Include="..\Tasks.Infraestructure\Tasks.Infraestructure.csproj" />
+    <ProjectReference Include="..\Tasks.Services\Tasks.Services.csproj" />
   </ItemGroup>
 
 </Project>
