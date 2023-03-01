@@ -2,9 +2,11 @@
 using Serilog;
 using Tasks.Domain.DTO.Request;
 using Tasks.Domain.DTO.Response;
+using Tasks.Domain.Events;
 using Tasks.Domain.Interfaces.Data;
 using Tasks.Domain.Interfaces.Data.Repository;
 using Tasks.Domain.Interfaces.Data.Service;
+using Tasks.Domain.Messaging;
 
 namespace Tasks.Services
 {
@@ -13,12 +15,14 @@ namespace Tasks.Services
         private readonly IDatabase _database;
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
+        private readonly IBusPublisher _busPublisher;
 
-        public TaskService(IDatabase database, ITaskRepository taskRepository, IMapper mapper)
+        public TaskService(IDatabase database, ITaskRepository taskRepository, IMapper mapper, IBusPublisher busPublisher)
         {
             _database = database;
             _taskRepository = taskRepository;
             _mapper = mapper;
+            _busPublisher = busPublisher;
         }
 
         public async Task<TaskResponse> GetTaskAsync(int taskId)
@@ -57,7 +61,18 @@ namespace Tasks.Services
                 var response = await _taskRepository.CreateAsync(task, connection, transaction);
                 id = response.Id;
             });
-
+            
+            if (id >= 0)
+            {
+                await _busPublisher.PublishAsync(
+                    new TaskCreatedEvent
+                    {
+                        Email = "fake@email.com",
+                        Date = task.Date,
+                        Description = $"Task has been created with Description: {task.Description}"
+                    });
+            }
+            
             return id;
         }
     }

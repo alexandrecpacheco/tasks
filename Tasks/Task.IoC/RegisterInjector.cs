@@ -6,7 +6,7 @@ using Tasks.Infraestructure;
 using Tasks.Infraestructure.Data;
 using Tasks.Services;
 
-namespace Task.IoC
+namespace Tasks.IoC
 {
     public static class RegisterInjector
     {

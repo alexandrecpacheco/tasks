@@ -49,7 +49,7 @@ namespace Tasks.Infraestructure.Data
         {
             const string query = @"
                     INSERT INTO TASK (description, date, status, created_at)
-                    VALUES (@Description, @Date, @Status, GETDATE());
+                    VALUES (@Description, GETDATE(), @Status, GETDATE());
 
                     SELECT t.id
                     FROM task t
