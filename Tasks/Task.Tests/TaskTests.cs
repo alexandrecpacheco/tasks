@@ -52,7 +52,7 @@ namespace Task.Tests
             var taskEntity = new TaskEntity()
             {
                 Id = 1,
-                Description = "Test",
+                Description = "Test 1",
                 Date = System.DateTime.Today,
                 Status = true,
                 CreatedAt = System.DateTime.Today
@@ -99,7 +99,7 @@ namespace Task.Tests
                     Id = 1,
                     Date = DateTime.Today,
                     Status = true,
-                    Description = "Test"
+                    Description = "Test 1"
                 },
                 new TaskEntity
                 {
