@@ -1,7 +1,9 @@
-﻿namespace Tasks.Domain.Messaging
+﻿using Tasks.Domain.Events;
+
+namespace Tasks.Domain.Messaging
 {
     public interface IBusPublisher
     {
-        Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent;
+        public void SendProductMessage<T>(TaskCreatedEvent message);
     }
 }

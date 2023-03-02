@@ -64,12 +64,12 @@ namespace Tasks.Services
             
             if (id >= 0)
             {
-                await _busPublisher.PublishAsync(
+                _busPublisher.SendProductMessage<TaskCreatedEvent>(
                     new TaskCreatedEvent
                     {
                         Email = "fake@email.com",
                         Date = task.Date,
-                        Description = $"Task has been created with Description: {task.Description}"
+                        Description = $"Description: {task.Description}"
                     });
             }
             

@@ -1,21 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using RawRabbit;
-using RawRabbit.Configuration;
-using RawRabbit.Enrichers.GlobalExecutionId;
-using RawRabbit.Enrichers.MessageContext;
-using RawRabbit.Enrichers.MessageContext.Context;
-using RawRabbit.Instantiation;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 using Tasks.Domain.AutoMapper;
-using Tasks.Domain.DTO.Request;
-using Tasks.Domain.DTO.Response;
 using Tasks.Domain.Entities;
 using Tasks.Domain.Interfaces.Data;
 using Tasks.Domain.Interfaces.Data.Repository;
@@ -34,26 +23,15 @@ namespace Tasks.Tests
         private Mock<ITaskRepository> _mockTaskRepository;
         private Mock<IDatabase> _mockIDatabase;
         private IMapper _mockMapper;
-        private IBusPublisher _mockBusPublisher;
+        private Mock<IBusPublisher> _mockBusPublisher;
 
         [SetUp]
         public void SetUp()
         {
-            var options = new RawRabbitConfiguration();
-
-            var client = RawRabbitFactory.CreateSingleton(new RawRabbitOptions
-            {
-                ClientConfiguration = options,
-                Plugins = p => p
-                    .UseGlobalExecutionId()
-                    .UseHttpContext()
-                    .UseMessageContext(c => new MessageContext { GlobalRequestId = Guid.NewGuid() })
-            });
-
             _mockTaskService = new Mock<ITaskService>();
             _mockTaskRepository = new Mock<ITaskRepository>();
             _mockIDatabase = new Mock<IDatabase>();
-            _mockBusPublisher = new BusPublisher(client);
+            _mockBusPublisher = new Mock<IBusPublisher>();
 
             MapperConfiguration mapperConfig = new MapperConfiguration(
         cfg =>
@@ -82,7 +60,7 @@ namespace Tasks.Tests
 
             _mockTaskRepository.Setup(c => c.GetTaskAsync(taskId)).Returns(System.Threading.Tasks.Task.FromResult(taskEntity));
 
-            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher);
+            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher.Object);
 
             //Act
             var expected = await taskService.GetTaskAsync(taskId);
@@ -100,7 +78,7 @@ namespace Tasks.Tests
 
             _mockTaskRepository.Setup(c => c.GetTaskAsync(taskId)).Returns(System.Threading.Tasks.Task.FromResult(It.IsAny<TaskEntity>()));
 
-            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher);
+            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher.Object);
 
             //Act
             var expected = await taskService.GetTaskAsync(taskId);
@@ -134,7 +112,7 @@ namespace Tasks.Tests
                 
             _mockTaskRepository.Setup(c => c.GetAllTasksAsync()).Returns(System.Threading.Tasks.Task.FromResult(listTaskEntity));
 
-            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher);
+            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher.Object);
 
             //Act
             var expected = await taskService.GetAllTasksAsync();
@@ -150,7 +128,7 @@ namespace Tasks.Tests
             //Arrange
             _mockTaskRepository.Setup(c => c.GetAllTasksAsync()).Returns(System.Threading.Tasks.Task.FromResult(It.IsAny<IEnumerable<TaskEntity>>()));
 
-            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher);
+            var taskService = new TaskService(_mockIDatabase.Object, _mockTaskRepository.Object, _mockMapper, _mockBusPublisher.Object);
 
             //Act
             var expected = await taskService.GetAllTasksAsync();
