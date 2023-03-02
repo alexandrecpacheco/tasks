@@ -1,9 +1,8 @@
-﻿using MediatR;
-using Tasks.Domain.Messaging;
+﻿using Tasks.Domain.Messaging;
 
 namespace Tasks.Domain.Events
 {
-    public class BaseCompletedEvent : IEvent, IRequest
+    public class BaseCompletedEvent
     {
         protected Guid _operationId;
         protected string? _origin;
