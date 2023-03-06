@@ -62,7 +62,7 @@ namespace Tasks.Services
                 id = response.Id;
             });
             
-            if (id >= 0)
+            if (id > 0)
             {
                 _busPublisher.SendProductMessage<TaskCreatedEvent>(
                     new TaskCreatedEvent

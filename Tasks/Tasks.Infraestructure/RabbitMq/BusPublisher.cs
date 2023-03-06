@@ -26,7 +26,7 @@ namespace Tasks.Infraestructure.RabbitMq
                 HostName = config.HostName,
                 UserName = config.UserName,
                 Password = config.Password,
-                VirtualHost = config.Password
+                VirtualHost = config.VirtualHost
             };
 
             var connection = factory.CreateConnection();
