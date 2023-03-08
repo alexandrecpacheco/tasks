@@ -2,6 +2,7 @@
 using Serilog;
 using Tasks.Domain.DTO.Request;
 using Tasks.Domain.DTO.Response;
+using Tasks.Domain.Entities;
 using Tasks.Domain.Events;
 using Tasks.Domain.Interfaces.Data;
 using Tasks.Domain.Interfaces.Data.Repository;
@@ -53,12 +54,14 @@ namespace Tasks.Services
             return taskResponse;
         }
 
-        public async Task<int> CreateAsync(TaskRequest task)
+        public async Task<TaskResponse> CreateAsync(TaskRequest task)
         {
             int id = 0;
+            var response = new TaskEntity();
+
             await _database.ExecuteInTransaction(async (connection, transaction) =>
             {
-                var response = await _taskRepository.CreateAsync(task, connection, transaction);
+                response = await _taskRepository.CreateAsync(task, connection, transaction);
                 id = response.Id;
             });
             
@@ -72,8 +75,10 @@ namespace Tasks.Services
                         Description = $"Description: {task.Description}"
                     });
             }
+
+            var result = _mapper.Map<TaskEntity, TaskResponse>(response);
             
-            return id;
+            return result;
         }
     }
 }
