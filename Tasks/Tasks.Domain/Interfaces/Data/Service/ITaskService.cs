@@ -7,6 +7,6 @@ namespace Tasks.Domain.Interfaces.Data.Service
     {
         Task<TaskResponse> GetTaskAsync(int taskId);
         Task<IEnumerable<TaskResponse>> GetAllTasksAsync();
-        Task<int> CreateAsync(TaskRequest request);
+        Task<TaskResponse> CreateAsync(TaskRequest request);
     }
 }

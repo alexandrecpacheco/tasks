@@ -79,13 +79,13 @@ namespace Tasks.Controllers
             _logger.LogInformation("Creting task");
             if (task is null) return BadRequest();
 
-            var resultId = await _taskService.CreateAsync(task);
+            var result = await _taskService.CreateAsync(task);
 
-            if (resultId <= 0)
+            if (result.Description is null)
                 return BadRequest("Error trying to create a task");
 
-            _logger.LogInformation($"Task has been created, id: {resultId}");
-            return Created("/", resultId);
+            _logger.LogInformation($"Task has been created, description: {result.Description}");
+            return Created("/", result);
         }
     }
 }

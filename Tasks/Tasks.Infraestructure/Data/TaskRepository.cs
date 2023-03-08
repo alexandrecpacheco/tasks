@@ -51,7 +51,7 @@ namespace Tasks.Infraestructure.Data
                     INSERT INTO TASK (description, date, status, created_at)
                     VALUES (@Description, GETDATE(), @Status, GETDATE());
 
-                    SELECT t.id
+                    SELECT t.id, t.description, t.date, t.status
                     FROM task t
                     WHERE t.id = SCOPE_IDENTITY();
             ";
