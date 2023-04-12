@@ -58,5 +58,35 @@ namespace Tasks.Infraestructure.Data
 
             return await dbConnection.QueryFirstAsync<TaskEntity>(query, request, dbTransaction);
         }
+
+        public async Task<TaskEntity> UpdateAsync(TaskRequest request, DbConnection dbConnection, DbTransaction dbTransaction)
+        {
+            const string query = @"
+                    UPDATE task
+                    SET Description = @Description,
+                    Status = @Status,
+                    Date = @Date
+                    WHERE Id = @Id;
+                    
+                    SELECT t.id, t.description, t.date, t.status
+                    FROM task t
+                    WHERE t.id = @Id;
+            ";
+
+            var result = await dbConnection.QueryAsync<TaskEntity>(query, request, dbTransaction);
+
+            return result.FirstOrDefault();
+        }
+
+        public async Task DeleteAsync(int id, DbConnection dbConnection, DbTransaction dbTransaction)
+        {
+            const string query = @"
+                    DELETE
+                    FROM task
+                    WHERE id = @id;
+            ";
+
+            await dbConnection.ExecuteAsync(query, new { id }, dbTransaction);
+        }
     }
 }

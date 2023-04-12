@@ -2,6 +2,7 @@
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Threading.Tasks;
 using Tasks.Domain.DTO.Request;
 using Tasks.Domain.Interfaces.Data.Service;
 
@@ -76,7 +77,7 @@ namespace Tasks.Controllers
 
         public async Task<IActionResult> Create([Required][FromBody] TaskRequest task)
         {
-            _logger.LogInformation("Creting task");
+            _logger.LogInformation("Creating task");
             if (task is null) return BadRequest();
 
             var result = await _taskService.CreateAsync(task);
@@ -86,6 +87,30 @@ namespace Tasks.Controllers
 
             _logger.LogInformation($"Task has been created, description: {result.Description}");
             return Created("/", result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([Required] [FromBody] TaskRequest task)
+        {
+            _logger.LogInformation("Updating task");
+
+            var result = await _taskService.UpdateAsync(task);
+
+            if (result.Description is null)
+                return BadRequest("Error trying to update a task");
+
+            _logger.LogInformation($"Task has been created, description: {result.Description}");
+            return Created("/", result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            _logger.LogInformation($"Deleting a task id: {id}");
+
+            await _taskService.DeleteAsync(id);
+
+            return Ok();
         }
     }
 }
