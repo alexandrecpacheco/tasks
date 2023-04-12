@@ -80,5 +80,28 @@ namespace Tasks.Services
             
             return result;
         }
+
+        public async Task<TaskResponse> UpdateAsync(TaskRequest task)
+        {
+            int id = 0;
+            var response = new TaskEntity();
+
+            await _database.ExecuteInTransaction(async (connection, transaction) =>
+            {
+                response = await _taskRepository.UpdateAsync(task, connection, transaction);
+            });
+
+            var result = _mapper.Map<TaskEntity, TaskResponse>(response);
+
+            return result;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _database.ExecuteInTransaction(async (connection, transaction) =>
+            {
+                await _taskRepository.DeleteAsync(id, connection, transaction);
+            });
+        }
     }
 }

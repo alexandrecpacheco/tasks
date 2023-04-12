@@ -9,5 +9,7 @@ namespace Tasks.Domain.Interfaces.Data.Repository
         Task<TaskEntity> GetTaskAsync(int taskId);
         Task<IEnumerable<TaskEntity>> GetAllTasksAsync();
         Task<TaskEntity> CreateAsync(TaskRequest request, DbConnection dbConnection, DbTransaction dbTransaction);
+        Task<TaskEntity> UpdateAsync(TaskRequest request, DbConnection dbConnection, DbTransaction dbTransaction);
+        Task DeleteAsync(int id, DbConnection dbConnection, DbTransaction dbTransaction);
     }
 }
