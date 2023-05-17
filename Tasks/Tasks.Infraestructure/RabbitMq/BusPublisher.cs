@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
 using Tasks.Domain.Events;
-using Tasks.Domain.Messaging;
+using Tasks.Domain.Interfaces.Messaging;
 using Tasks.Infraestructure.Utils;
 
 namespace Tasks.Infraestructure.RabbitMq

@@ -9,8 +9,7 @@ using Tasks.Domain.Entities;
 using Tasks.Domain.Interfaces.Data;
 using Tasks.Domain.Interfaces.Data.Repository;
 using Tasks.Domain.Interfaces.Data.Service;
-using Tasks.Domain.Messaging;
-using Tasks.Infraestructure.RabbitMq;
+using Tasks.Domain.Interfaces.Messaging;
 using Tasks.Services;
 
 namespace Tasks.Tests

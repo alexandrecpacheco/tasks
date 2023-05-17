@@ -1,7 +1,8 @@
-﻿using Tasks.Domain.Messaging;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Tasks.Domain.Events
 {
+    [ExcludeFromCodeCoverage]
     public class BaseCompletedEvent
     {
         protected Guid _operationId;

@@ -1,5 +1,8 @@
-﻿namespace Tasks.Domain.DTO.Request
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Tasks.Domain.DTO.Request
 {
+    [ExcludeFromCodeCoverage]
     public class TaskRequest
     {
         public int Id { get; set; }
