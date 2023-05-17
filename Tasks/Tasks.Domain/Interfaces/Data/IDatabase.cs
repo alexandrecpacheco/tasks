@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Tasks.Domain.Interfaces.Data
 {

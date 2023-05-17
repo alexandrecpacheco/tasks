@@ -1,5 +1,8 @@
-﻿namespace Tasks.Domain.Entities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Tasks.Domain.Entities
 {
+    [ExcludeFromCodeCoverage]
     public class TaskRabbitMqConfiguration
     {
         public string? HostName { get; set; }

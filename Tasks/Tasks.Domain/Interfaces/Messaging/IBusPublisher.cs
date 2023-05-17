@@ -1,6 +1,6 @@
 ﻿using Tasks.Domain.Events;
 
-namespace Tasks.Domain.Messaging
+namespace Tasks.Domain.Interfaces.Messaging
 {
     public interface IBusPublisher
     {

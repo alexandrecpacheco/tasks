@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using Tasks.Domain.DTO.Request;
 using Tasks.Domain.Entities;
 

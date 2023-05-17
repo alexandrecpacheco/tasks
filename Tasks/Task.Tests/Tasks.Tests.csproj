@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tasks.Infraestructure\Tasks.Infraestructure.csproj" />
     <ProjectReference Include="..\Tasks.Services\Tasks.Services.csproj" />
+    <ProjectReference Include="..\Tasks\Tasks.csproj" />
   </ItemGroup>
 
 </Project>

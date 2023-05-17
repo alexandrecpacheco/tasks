@@ -1,5 +1,8 @@
-﻿namespace Tasks.Domain.DTO.Response
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Tasks.Domain.DTO.Response
 {
+    [ExcludeFromCodeCoverage]
     public class TaskResponse
     {
         public int Id { get; set; }

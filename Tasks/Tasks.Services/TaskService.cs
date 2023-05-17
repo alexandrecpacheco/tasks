@@ -7,7 +7,7 @@ using Tasks.Domain.Events;
 using Tasks.Domain.Interfaces.Data;
 using Tasks.Domain.Interfaces.Data.Repository;
 using Tasks.Domain.Interfaces.Data.Service;
-using Tasks.Domain.Messaging;
+using Tasks.Domain.Interfaces.Messaging;
 
 namespace Tasks.Services
 {
