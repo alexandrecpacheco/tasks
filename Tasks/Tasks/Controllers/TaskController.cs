@@ -81,30 +81,44 @@ namespace Tasks.Controllers
 
             var result = await _taskService.CreateAsync(task);
 
-            if (result.Description is null)
+            if (result is null || result.Description is null)
                 return BadRequest("Error trying to create a task");
 
             _logger.LogInformation($"Task has been created, description: {result.Description}");
             return Created("/", result);
         }
 
+        /// <summary>
+        /// Update Tasks as requested
+        /// </summary>
+        /// <param name="task">TaskRequest object</param>
+        /// <returns>Return TaskResponse object</returns>
         [HttpPut]
         public async Task<IActionResult> Update([Required] [FromBody] TaskRequest task)
         {
+            if (task is null || task.Description is null) return BadRequest();
+                
             _logger.LogInformation("Updating task");
 
             var result = await _taskService.UpdateAsync(task);
 
-            if (result.Description is null)
+            if (result is null || result.Description is null)
                 return BadRequest("Error trying to update a task");
 
             _logger.LogInformation($"Task has been created, description: {result.Description}");
             return Created("/", result);
         }
 
+        /// <summary>
+        /// Delete register by Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>Returns Ok</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (id <= 0) return BadRequest();
+
             _logger.LogInformation($"Deleting a task id: {id}");
 
             await _taskService.DeleteAsync(id);
