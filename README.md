@@ -1,6 +1,6 @@
-# Tasks with .NET 6.0 and RabbitMQ
+# Tasks with .NET 8.0 and RabbitMQ
 
-This Task application is built with .NET 6.0 and RabbitMQ which allows you to add and list tasks on REST API and send it to the Exchange on RabbitMQ. This is consumed in the Console Application.
+This Task application is built with .NET 8.0 and RabbitMQ which allows you to add and list tasks on REST API and send it to the Exchange on RabbitMQ. This is consumed in the Console Application.
 
 ## Install the project
 
