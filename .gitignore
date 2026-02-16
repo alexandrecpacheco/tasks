@@ -16,3 +16,6 @@ bin-release/
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+/Tasks/.vs/Tasks/CopilotIndices/17.14.1584.41681
+/Tasks/.vs/Tasks
+/Tasks/.vs/ProjectEvaluation
