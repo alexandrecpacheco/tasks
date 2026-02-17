@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks", "Tasks\Tasks.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks.Domain", "Tasks.Domain\Tasks.Domain.csproj", "{67D5E2D8-C2EA-491C-AEE8-35876A7A6F34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks.Infraestructure", "Tasks.Infraestructure\Tasks.Infraestructure.csproj", "{C45E6568-270B-4AC5-962A-3C21D33569F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks.Infrastructure", "Tasks.Infraestructure\Tasks.Infrastructure.csproj", "{C45E6568-270B-4AC5-962A-3C21D33569F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks.Services", "Tasks.Services\Tasks.Services.csproj", "{64753630-97E5-4E2E-B24C-82CCDC9C9B14}"
 EndProject
